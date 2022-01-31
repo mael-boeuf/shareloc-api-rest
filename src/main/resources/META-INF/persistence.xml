@@ -4,7 +4,10 @@
              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd"
              version="2.2">
     <persistence-unit name="Eclipselink_JPA" transaction-type="JTA">
-
+        <class>ensisa.boeuf.jacquey.tekin.shareloc.model.User</class>
+        <class>ensisa.boeuf.jacquey.tekin.shareloc.model.Service</class>
+        <class>ensisa.boeuf.jacquey.tekin.shareloc.model.Colocation</class>
+        <class>ensisa.boeuf.jacquey.tekin.shareloc.model.AchievedService</class>
         <properties>
             <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
             <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/sharelocDatabase"/>
