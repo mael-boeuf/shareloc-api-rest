@@ -2,13 +2,17 @@ package ensisa.boeuf.jacquey.tekin.shareloc.model;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+@Entity
 @Table
 public class AchievedService {
 
-    @Id
+    @OneToOne
     private User to;
+    @Id
+    @OneToOne
     private User from;
     private int date;   // date format : ddmmyyyy
     private String picture;

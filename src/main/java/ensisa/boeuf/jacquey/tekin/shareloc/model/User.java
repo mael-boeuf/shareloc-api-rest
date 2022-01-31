@@ -1,18 +1,21 @@
 package ensisa.boeuf.jacquey.tekin.shareloc.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.ArrayList;
 
 @Entity
 @Table
 public class User {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
     private String email;
     private String password;
     private String firstName;
     private String lastName;
+    @OneToMany
+    private ArrayList<Colocation> colocations;
 
     public User(String email, String password, String firstName, String lastName) {
         this.email = email;
@@ -55,5 +58,13 @@ public class User {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public ArrayList<Colocation> getColocations() {
+        return colocations;
     }
 }
