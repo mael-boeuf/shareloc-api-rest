@@ -20,7 +20,7 @@ public class Service {
     }
 
     public Service() {
-        super();
+
     }
 
     public String getTitle() {

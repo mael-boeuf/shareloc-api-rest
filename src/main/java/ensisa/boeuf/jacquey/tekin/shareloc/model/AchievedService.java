@@ -1,16 +1,14 @@
 package ensisa.boeuf.jacquey.tekin.shareloc.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.ArrayList;
 
 @Entity
 @Table
 public class AchievedService {
 
-    @OneToOne
-    private User to;
+    @OneToMany
+    private ArrayList<User> to;
     @Id
     @OneToOne
     private User from;
@@ -18,7 +16,7 @@ public class AchievedService {
     private String picture;
     private boolean valid;
 
-    public AchievedService(User to, User from, int date, String picture, boolean valid) {
+    public AchievedService(ArrayList<User> to, User from, int date, String picture, boolean valid) {
         this.to = to;
         this.from = from;
         this.date = date;
@@ -27,15 +25,15 @@ public class AchievedService {
     }
 
     public AchievedService() {
-        super();
+
     }
 
-    public User getTo() {
+    public ArrayList<User> getTo() {
         return to;
     }
 
-    public void setTo(User to) {
-        this.to = to;
+    public void addUserTo(User to) {
+        this.to.add(to);
     }
 
     public User getFrom() {

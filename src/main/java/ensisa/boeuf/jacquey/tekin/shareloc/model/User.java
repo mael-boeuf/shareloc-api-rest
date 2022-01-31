@@ -25,7 +25,7 @@ public class User {
     }
 
     public User() {
-        super();
+
     }
 
     public String getEmail() {
@@ -66,6 +66,10 @@ public class User {
 
     public ArrayList<Colocation> getColocations() {
         return colocations;
+    }
+
+    public void addColocation(Colocation colocation) {
+        this.colocations.add(colocation);
     }
 
     @Override

@@ -26,7 +26,7 @@ public class Colocation {
     }
 
     public Colocation() {
-        super();
+
     }
 
     public String getName() {
@@ -45,16 +45,32 @@ public class Colocation {
         return members;
     }
 
+    public void addMember(User member) {
+        this.members.add(member);
+    }
+
     public User getManager() {
         return manager;
+    }
+
+    public void setManager(User manager) {
+        this.manager = manager;
     }
 
     public ArrayList<Service> getServices() {
         return services;
     }
 
+    public void addService(Service service) {
+        this.services.add(service);
+    }
+
     public ArrayList<AchievedService> getAchievedServices() {
         return achievedServices;
+    }
+
+    public void addAchievedService(AchievedService achievedService) {
+        this.achievedServices.add(achievedService);
     }
 
     @Override
