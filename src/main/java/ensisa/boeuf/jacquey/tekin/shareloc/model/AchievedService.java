@@ -7,25 +7,34 @@ import java.util.ArrayList;
 @Table
 public class AchievedService {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
     @OneToMany
     private ArrayList<User> to;
-    @Id
     @OneToOne
     private User from;
     private int date;   // date format : ddmmyyyy
     private String picture;
     private boolean valid;
+    @OneToOne
+    private Service service;
 
-    public AchievedService(ArrayList<User> to, User from, int date, String picture, boolean valid) {
+    public AchievedService(ArrayList<User> to, User from, int date, String picture, boolean valid, Service service) {
         this.to = to;
         this.from = from;
         this.date = date;
         this.picture = picture;
         this.valid = valid;
+        this.service = service;
     }
 
     public AchievedService() {
 
+    }
+
+    public long getId() {
+        return id;
     }
 
     public ArrayList<User> getTo() {
@@ -66,6 +75,14 @@ public class AchievedService {
 
     public void setValid(boolean valid) {
         this.valid = valid;
+    }
+
+    public Service getService() {
+        return service;
+    }
+
+    public void setService(Service service) {
+        this.service = service;
     }
 
     @Override

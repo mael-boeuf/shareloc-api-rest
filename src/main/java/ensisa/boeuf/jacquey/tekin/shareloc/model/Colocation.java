@@ -23,6 +23,10 @@ public class Colocation {
     public Colocation(String name, User manager) {
         this.name = name;
         this.manager = manager;
+        this.members = new ArrayList<>();
+        this.services = new ArrayList<>();
+        this.achievedServices = new ArrayList<>();
+        addMember(manager);
     }
 
     public Colocation() {
