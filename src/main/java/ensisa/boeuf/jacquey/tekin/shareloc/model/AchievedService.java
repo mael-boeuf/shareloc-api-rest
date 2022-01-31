@@ -69,4 +69,15 @@ public class AchievedService {
     public void setValid(boolean valid) {
         this.valid = valid;
     }
+
+    @Override
+    public String toString() {
+        return "AchievedService{" +
+                "to=" + to +
+                ", from=" + from +
+                ", date=" + date +
+                ", picture='" + picture + '\'' +
+                ", valid=" + valid +
+                '}';
+    }
 }

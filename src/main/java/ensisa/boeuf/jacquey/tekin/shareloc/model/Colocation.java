@@ -56,4 +56,13 @@ public class Colocation {
     public ArrayList<AchievedService> getAchievedServices() {
         return achievedServices;
     }
+
+    @Override
+    public String toString() {
+        return "Colocation{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", manager=" + manager +
+                '}';
+    }
 }
