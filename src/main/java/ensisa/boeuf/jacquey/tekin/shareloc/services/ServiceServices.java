@@ -11,7 +11,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 @Path("service")
-@Produces(MediaType.APPLICATION_JSON)
 public class ServiceServices extends AbstractServices<Service>{
 
     public ServiceServices() {
@@ -20,6 +19,7 @@ public class ServiceServices extends AbstractServices<Service>{
 
     @POST
     @Path("new")
+    @Produces(MediaType.APPLICATION_JSON)
     public Response newService(@QueryParam("name") String colocationName, @QueryParam("title") String title, @QueryParam("description") String description, @QueryParam("cost") int cost) {
         if(ServiceDao.createService(title, description, cost, colocationName)){
             return Response.status(Response.Status.CREATED).build();
