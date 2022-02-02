@@ -9,7 +9,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-@Produces(MediaType.APPLICATION_JSON)
+
 public class AbstractServices<T> {
 
     private AbstractDao<T> dao = null;
@@ -23,12 +23,14 @@ public class AbstractServices<T> {
     }
 
     @GET
+    @Produces(MediaType.APPLICATION_JSON)
     public Response getAll() {
         return Response.ok().entity(dao.findAll()).build();
     }
 
     @GET
     @Path("{id}")
+    @Produces(MediaType.APPLICATION_JSON)
     public Response get(@PathParam("id") Integer id) {
         final T obj = dao.find(id);
         if (obj == null) return Response.status(Response.Status.NOT_FOUND).build();
