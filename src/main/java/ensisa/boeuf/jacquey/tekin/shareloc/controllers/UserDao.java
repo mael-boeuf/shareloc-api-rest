@@ -1,9 +1,6 @@
 package ensisa.boeuf.jacquey.tekin.shareloc.controllers;
 
-import ensisa.boeuf.jacquey.tekin.shareloc.model.AchievedService;
-import ensisa.boeuf.jacquey.tekin.shareloc.model.Colocation;
-import ensisa.boeuf.jacquey.tekin.shareloc.model.Service;
-import ensisa.boeuf.jacquey.tekin.shareloc.model.User;
+import ensisa.boeuf.jacquey.tekin.shareloc.model.*;
 
 public class UserDao extends Dao {
 
@@ -75,6 +72,42 @@ public class UserDao extends Dao {
             }
             return true;
         }
+        return false;
+    }
+
+    public static boolean valid(String email, Long achievedServiceID, boolean validated) {
+        User validator = getUser(email);
+        AchievedService achievedService = achievedServiceDao.find(achievedServiceID);
+        User from = achievedService.getFrom();
+        Colocation colocation = achievedService.getService().getColocation();
+
+        if (validator == null || achievedService == null || from == null) {
+            return false;
+        }
+
+        Point point = getUserScoreIntoColocation(colocation,from);
+
+        if (!validator.equals(from) && achievedService.getTo().contains(validator)) {
+            if (validated) {
+                int cost = achievedService.getService().getCost();
+                achievedService.setValid(true);
+                point.addPoint(cost);
+                achievedServiceDao.edit(achievedService);
+                userDao.edit(from);
+                pointDao.edit(point);
+                for (User user : achievedService.getTo()) {
+                    Point _point = getUserScoreIntoColocation(colocation,user);
+                    _point.decreaseScore(cost);
+                }
+                serviceDao.remove(achievedService.getService());
+            } else {
+                achievedService.setValid(false);
+                achievedServiceDao.edit(achievedService);
+            }
+
+            return true;
+        }
+
         return false;
     }
 

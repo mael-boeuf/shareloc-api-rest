@@ -14,12 +14,11 @@ public class Dao {
     protected static final AbstractDao<Service> serviceDao = new AbstractDao(Service.class);
     protected static final AbstractDao<AchievedService> achievedServiceDao = new AbstractDao(AchievedService.class);
     protected static final AbstractDao<Image> imageDao = new AbstractDao(Image.class);
+    protected static final AbstractDao<Point> pointDao = new AbstractDao(Point.class);
 
-    //Table names
     protected static final String TABLE_EMAIL = "email";
     protected static final String TABLE_NAME = "name";
 
-    //Constants
     protected static final int DEFAULT_SCORE = 100;
 
     public Dao() {
