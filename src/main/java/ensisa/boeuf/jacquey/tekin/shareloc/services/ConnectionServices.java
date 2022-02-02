@@ -12,7 +12,6 @@ import javax.ws.rs.core.SecurityContext;
 import java.util.List;
 
 @Path("/")
-@Produces(MediaType.APPLICATION_JSON)
 public class ConnectionServices {
 
     public ConnectionServices() {
@@ -20,6 +19,7 @@ public class ConnectionServices {
 
     @POST
     @Path("signup")
+    @Produces(MediaType.APPLICATION_JSON)
     public Response signup(@QueryParam("email") String email, @QueryParam("password") String password, @QueryParam("firstname") String firstname, @QueryParam("lastname") String lastname) {
         if (UserDao.createUser(email, password, firstname, lastname))
             return Response.status(Response.Status.CREATED).build();
@@ -29,6 +29,7 @@ public class ConnectionServices {
 
     @POST
     @Path("signin")
+    @Produces(MediaType.APPLICATION_JSON)
     public Response signin(@QueryParam("email") String email, @QueryParam("password") String password){
         User user = UserDao.login(email,password);
         if(user != null) {
@@ -38,7 +39,9 @@ public class ConnectionServices {
     }
 
     @GET
+    @SigninNeeded
     @Path("myprofile")
+    @Produces(MediaType.APPLICATION_JSON)
     public Response whoami(@Context SecurityContext security) {
         User user = UserDao.getUser(security.getUserPrincipal().getName());
         if (user!=null)
