@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd"
+             version="2.2">
+    <persistence-unit name="ShareLoc_JPA" transaction-type="RESOURCE_LOCAL">
+        <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+        <!--<jta-data-source>java:global/mysqlPoolShareLoc</jta-data-source>-->
+        <non-jta-data-source>java:global/mysqlPoolShareLoc</non-jta-data-source>
+        <class>ensisa.boeuf.jacquey.tekin.shareloc.model.User</class>
+        <class>ensisa.boeuf.jacquey.tekin.shareloc.model.Service</class>
+        <class>ensisa.boeuf.jacquey.tekin.shareloc.model.Colocation</class>
+        <class>ensisa.boeuf.jacquey.tekin.shareloc.model.AchievedService</class>
+        <class>ensisa.boeuf.jacquey.tekin.shareloc.model.Point</class>
+        <class>ensisa.boeuf.jacquey.tekin.shareloc.model.Image</class>
+        <properties>
+            <!--<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/sharelocdatabase"/>
+            <property name="javax.persistence.jdbc.user" value="root"/>
+            <property name="javax.persistence.jdbc.password" value="root"/>
+            <property name="eclipselink.logging.level" value="FINE"/>
+            <property name="eclipselink.ddl-generation" value="create-tables"/>
+            <property name="javax.persistence.schema-generation.database.action"  value="drop-and-create"/>-->
+            <property name="eclipselink.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+            <property name="eclipselink.jdbc.url" value="jdbc:mysql://localhost:3306/sharelocdatabase"/>
+            <property name="eclipselink.jdbc.user" value="root"/>
+            <property name="eclipselink.jdbc.password" value="root"/>
+            <property name="eclipselink.ddl-generation" value="drop-and-create-tables"/>
+        </properties>
+    </persistence-unit>
+</persistence>
