@@ -1,11 +1,13 @@
 package ensisa.boeuf.jacquey.tekin.shareloc.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 @Entity
 @Table
-public class AchievedService {
+public class AchievedService implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -14,13 +16,14 @@ public class AchievedService {
     private ArrayList<User> to;
     @OneToOne
     private User from;
-    private int date;   // date format : ddmmyyyy
-    private String picture;
+    private Timestamp date;
+    @OneToOne
+    private Image picture;
     private boolean valid;
     @OneToOne
     private Service service;
 
-    public AchievedService(ArrayList<User> to, User from, int date, String picture, boolean valid, Service service) {
+    public AchievedService(ArrayList<User> to, User from, Timestamp date, Image picture, boolean valid, Service service) {
         this.to = to;
         this.from = from;
         this.date = date;
@@ -53,19 +56,19 @@ public class AchievedService {
         this.from = from;
     }
 
-    public int getDate() {
+    public Timestamp getDate() {
         return date;
     }
 
-    public void setDate(int date) {
+    public void setDate(Timestamp date) {
         this.date = date;
     }
 
-    public String getPicture() {
+    public Image getPicture() {
         return picture;
     }
 
-    public void setPicture(String picture) {
+    public void setPicture(Image picture) {
         this.picture = picture;
     }
 

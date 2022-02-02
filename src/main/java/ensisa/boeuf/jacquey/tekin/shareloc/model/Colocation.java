@@ -1,11 +1,12 @@
 package ensisa.boeuf.jacquey.tekin.shareloc.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 @Entity
 @Table
-public class Colocation {
+public class Colocation implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

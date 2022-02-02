@@ -1,11 +1,12 @@
 package ensisa.boeuf.jacquey.tekin.shareloc.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 @Entity
 @Table
-public class User {
+public class User implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -16,12 +17,15 @@ public class User {
     private String lastName;
     @OneToMany
     private ArrayList<Colocation> colocations;
+    @OneToMany
+    private ArrayList<Point> points;
 
     public User(String email, String password, String firstName, String lastName) {
         this.email = email;
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.points = new ArrayList<>();
     }
 
     public User() {
@@ -70,6 +74,14 @@ public class User {
 
     public void addColocation(Colocation colocation) {
         this.colocations.add(colocation);
+    }
+
+    public ArrayList<Point> getPoints() {
+        return this.points;
+    }
+
+    public void setScores(ArrayList<Point> points){
+        this.points = points;
     }
 
     @Override

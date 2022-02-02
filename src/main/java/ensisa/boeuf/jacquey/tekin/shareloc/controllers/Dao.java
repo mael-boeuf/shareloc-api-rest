@@ -1,11 +1,11 @@
 package ensisa.boeuf.jacquey.tekin.shareloc.controllers;
 
-import ensisa.boeuf.jacquey.tekin.shareloc.model.AchievedService;
-import ensisa.boeuf.jacquey.tekin.shareloc.model.Colocation;
-import ensisa.boeuf.jacquey.tekin.shareloc.model.Service;
-import ensisa.boeuf.jacquey.tekin.shareloc.model.User;
+import ensisa.boeuf.jacquey.tekin.shareloc.model.*;
 
-import java.awt.*;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 
 public class Dao {
 
@@ -13,6 +13,7 @@ public class Dao {
     protected static final AbstractDao<Colocation> colocationDao = new AbstractDao(Colocation.class);
     protected static final AbstractDao<Service> serviceDao = new AbstractDao(Service.class);
     protected static final AbstractDao<AchievedService> achievedServiceDao = new AbstractDao(AchievedService.class);
+    protected static final AbstractDao<Image> imageDao = new AbstractDao(Image.class);
 
     //Table names
     protected static final String TABLE_EMAIL = "email";
@@ -58,5 +59,30 @@ public class Dao {
             }
         }
         return cpt == 1;
+    }
+
+    public static Image downloadImg(String imgPath) {
+        File img = new File(imgPath);
+        try {
+            byte[] bytes = Files.readAllBytes(img.toPath());
+            Image image = new Image(bytes);
+            imageDao.create(image);
+            return image;
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static Point getUserScoreIntoColocation(Colocation colocation, User user) {
+        if (userIsIntoColoc(user, colocation)) {
+            for (Point point : user.getPoints()) {
+                if (point.getColocation().getId() == colocation.getId()) {
+                    return point;
+                }
+            }
+        }
+        return null;
     }
 }

@@ -38,7 +38,7 @@ public class ConnectionServices {
     }
 
     @GET
-    @Path("whoami")
+    @Path("myprofile")
     public Response whoami(@Context SecurityContext security) {
         User user = UserDao.getUser(security.getUserPrincipal().getName());
         if (user!=null)
