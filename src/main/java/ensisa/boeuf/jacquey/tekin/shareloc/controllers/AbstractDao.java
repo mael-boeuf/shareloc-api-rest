@@ -11,7 +11,7 @@ import java.util.List;
 
 public class AbstractDao<T> {
 
-    private static final String UNIT_NAME = "sharelocPU";
+    private static final String UNIT_NAME = "ShareLoc_JPA";
     private static EntityManagerFactory emf = Persistence.createEntityManagerFactory(UNIT_NAME);
     private static EntityManager entityManager = null;
 
