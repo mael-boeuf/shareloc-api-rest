@@ -8,7 +8,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 @Path("colocation")
-@Produces(MediaType.APPLICATION_JSON)
 public class ColocationServices extends AbstractServices<Colocation> {
 
     public ColocationServices() {
@@ -17,6 +16,7 @@ public class ColocationServices extends AbstractServices<Colocation> {
 
     @POST
     @Path("new")
+    @Produces(MediaType.APPLICATION_JSON)
     public Response addColocation(@QueryParam("name") String name, @QueryParam("admin") String admin_email) {
         if (ColocationDao.createColocation(name, admin_email)) {
             return Response.status(Response.Status.CREATED).build();
@@ -26,6 +26,7 @@ public class ColocationServices extends AbstractServices<Colocation> {
 
     @POST
     @Path("remove")
+    @Produces(MediaType.APPLICATION_JSON)
     public Response removeColocation(@QueryParam("name") String name, @QueryParam("admin") String admin_email) {
         if (ColocationDao.removeColocation(name, admin_email)) {
             return Response.ok().build();
@@ -35,6 +36,7 @@ public class ColocationServices extends AbstractServices<Colocation> {
 
     @POST
     @Path("invite")
+    @Produces(MediaType.APPLICATION_JSON)
     public Response sendInvitation(@QueryParam("name") String name, @QueryParam("admin") String admin, @QueryParam("email") String email) {
         if (ColocationDao.inviteUserIntoColocation(name, admin, email)) {
             return Response.ok().build();
@@ -44,6 +46,7 @@ public class ColocationServices extends AbstractServices<Colocation> {
 
     @POST
     @Path("editName")
+    @Produces(MediaType.APPLICATION_JSON)
     public Response editColocationName(@QueryParam("name") String name, @QueryParam("admin") String admin_email, @QueryParam("newName") String newName) {
         if (ColocationDao.editColocationName(name, admin_email, newName)) {
             return Response.ok().build();
@@ -53,6 +56,7 @@ public class ColocationServices extends AbstractServices<Colocation> {
 
     @POST
     @Path("removeMember")
+    @Produces(MediaType.APPLICATION_JSON)
     public Response removeMember(@QueryParam("name") String name, @QueryParam("admin") String admin_email, @QueryParam("email") String member_email) {
         if (ColocationDao.removeMemberFromColoc(name, admin_email, member_email)) {
             return Response.ok().build();
@@ -62,6 +66,7 @@ public class ColocationServices extends AbstractServices<Colocation> {
 
     @GET
     @Path("best")
+    @Produces(MediaType.APPLICATION_JSON)
     public Response getBestUser(@QueryParam("email") String email, @QueryParam("name") String name) {
         String msg = ColocationDao.getBestUser(email, name);
         if (msg != null) {
