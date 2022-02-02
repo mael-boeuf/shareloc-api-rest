@@ -1,0 +1,264 @@
+#%RAML 1.0
+---
+title: ShareLoc API
+baseUri: http://api.shareloc.com/{version}
+version: v1
+
+/signup:
+    post:
+        queryParameters:
+              email:
+                displayName: Adresse Email
+                type: string
+                description: Adresse email de la personne
+                required: true
+              password:
+                displayName: Mot de passe
+                type: string
+                description: Mot de passe du compte
+                required: true
+              firstname:
+                displayName: Prénom
+                type: string
+                description: Prénom de la personne
+                required: true
+              lastname:
+                displayName: NOM
+                type: string
+                description: Nom de la personne
+                required: true
+/signin:
+    post:
+        queryParameters:
+              email:
+                displayName: Adresse Email
+                type: string
+                description: Adresse email de la personne
+                required: true
+              password:
+                displayName: Mot de passe
+                type: string
+                description: Mot de passe du compte
+                required: true
+/myprofile:
+    get:
+/user:
+    /edit:
+        post:
+            queryParameters:
+                email:
+                    displayName: Adresse Email
+                    type: string
+                    description: Adresse email modifiée
+                    required: false
+                password:
+                    displayName: Mot de passe
+                    type: string
+                    description: Mot de passe modifié du compte
+                    required: false
+                firstname:
+                    displayName: Prénom
+                    type: string
+                    description: Prénom modifié
+                    required: false
+                lastname:
+                    displayName: NOM
+                    type: string
+                    description: Nom modifié
+                    required: false
+    /quit:
+        post:
+            queryParameters:
+                email:
+                    displayName: Adresse Email
+                    type: string
+                    description: Adresse email de la personne
+                    required: true
+                password:
+                    displayName: Mot de passe
+                    type: string
+                    description: Mot de passe du compte
+                    required: true
+    /vote:
+        post:
+            queryParameters:
+                email:
+                    displayName: Adresse Email
+                    type: string
+                    description: Adresse email de la personne
+                    required: true
+                serviceID:
+                    displayName: Identifiant du service
+                    type: number
+                    description: Identifiant unique du service
+                    required: true
+                vote:
+                    displayName: Vote
+                    type: number
+                    description: Nombre de vote à donner au service
+                    required: true
+    /valid:
+        post:
+            queryParameters:
+                email:
+                    displayName: Adresse Email
+                    type: string
+                    description: Adresse email de la personne
+                    required: true
+                achievedServiceID:
+                    displayName: Identifiant du service achevé
+                    type: number
+                    description: Identifiant unique du service achevé
+                    required: true
+                valid:
+                    displayName: Validité
+                    type: string
+                    description: Validation d'un service achevé
+                    required: true
+/achievedService:
+    /new:
+        post:
+            queryParameters:
+                email:
+                    displayName: Adresse Email
+                    type: string
+                    description: Adresse email de la personne
+                    required: true
+                serviceID:
+                    displayName: Identifiant du service
+                    type: number
+                    description: Identifiant unique du service
+                    required: true
+                date:
+                    displayName: Date
+                    type: string
+                    description: Date de la validation du service
+                    required: true
+                picture:
+                    displayName: Image
+                    type: string
+                    description: Image accompagnant la description
+                    required: false
+                to:
+                    displayName: Destinataire
+                    type: string
+                    description: Liste des personnes destinataires
+                    required: true
+/colocation:
+    /new:
+        post:
+            queryParameters:
+                name:
+                    displayName: Nom
+                    type: string
+                    description: Nom de la colocation
+                    required: true
+                manager:
+                    displayName: Manager
+                    type: string
+                    description: Responsable de la colocation
+                    required: true
+    /remove:
+        post:
+            queryParameters:
+                name:
+                    displayName: Nom
+                    type: string
+                    description: Nom de la colocation
+                    required: true
+                manager:
+                    displayName: Manager
+                    type: string
+                    description: Responsable de la colocation
+                    required: true
+    /invite:
+        post:
+            queryParameters:
+                name:
+                    displayName: Nom
+                    type: string
+                    description: Nom de la colocation
+                    required: true
+                manager:
+                    displayName: Manager
+                    type: string
+                    description: Responsable de la colocation
+                    required: true
+                email:
+                    displayName: Adresse Email
+                    type: string
+                    description: Adresse email de la personne à inviter
+                    required: true
+    /editName:
+        post:
+            queryParameters:
+                name:
+                    displayName: Nom
+                    type: string
+                    description: Nom de la colocation
+                    required: true
+                manager:
+                    displayName: Manager
+                    type: string
+                    description: Responsable de la colocation
+                    required: true
+                newName:
+                    displayName: Nouveau nom
+                    type: string
+                    description: Nouveau nom de la colocation
+                    required: true
+    /removeMember
+        post:
+            queryParameters:
+                name:
+                    displayName: Nom
+                    type: string
+                    description: Nom de la colocation
+                    required: true
+                manager:
+                    displayName: Manager
+                    type: string
+                    description: Responsable de la colocation
+                    required: true
+                email:
+                    displayName: Adresse Email
+                    type: string
+                    description: Adresse email de la personne à supprimer
+                    required: true
+    /best
+        get:
+            queryParameters:
+                email:
+                    displayName: Adresse Email
+                    type: string
+                    description: Adresse email de la personne
+                    required: true
+                name:
+                    displayName: Nom
+                    type: string
+                    description: Nom de la colocation
+                    required: true
+/service:
+    /new:
+        post:
+            queryParameters:
+                name:
+                    displayName: Nom
+                    type: string
+                    description: Nom de la colocation
+                    required: true
+                title:
+                    displayName: Titre
+                    type: string
+                    description: Titre du service
+                    required: true
+                description:
+                    displayName: Description
+                    type: string
+                    description: Description du service
+                    required: true
+                cost:
+                    displayName: Point
+                    type: number
+                    description: Nombre de points associé au service
+                    required: true
