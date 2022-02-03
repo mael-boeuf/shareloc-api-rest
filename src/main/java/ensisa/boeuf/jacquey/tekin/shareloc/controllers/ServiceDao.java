@@ -2,7 +2,9 @@ package ensisa.boeuf.jacquey.tekin.shareloc.controllers;
 
 import ensisa.boeuf.jacquey.tekin.shareloc.model.Colocation;
 import ensisa.boeuf.jacquey.tekin.shareloc.model.Service;
+import io.swagger.annotations.Api;
 
+@Api(value = "/service")
 public class ServiceDao extends Dao {
 
     public ServiceDao() {

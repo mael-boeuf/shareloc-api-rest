@@ -3,7 +3,9 @@ package ensisa.boeuf.jacquey.tekin.shareloc.controllers;
 import ensisa.boeuf.jacquey.tekin.shareloc.model.Colocation;
 import ensisa.boeuf.jacquey.tekin.shareloc.model.Point;
 import ensisa.boeuf.jacquey.tekin.shareloc.model.User;
+import io.swagger.annotations.Api;
 
+@Api(value = "/colocation")
 public class ColocationDao extends Dao {
 
     public ColocationDao() {

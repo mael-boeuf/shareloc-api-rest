@@ -2,6 +2,10 @@ package ensisa.boeuf.jacquey.tekin.shareloc.services;
 
 import ensisa.boeuf.jacquey.tekin.shareloc.controllers.ColocationDao;
 import ensisa.boeuf.jacquey.tekin.shareloc.model.Colocation;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -13,6 +17,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 @Path("colocation")
+@Api(value = "/colocation", consumes="application/json, application/xml")
 public class ColocationServices extends AbstractServices<Colocation> {
 
     public ColocationServices() {
@@ -22,14 +27,15 @@ public class ColocationServices extends AbstractServices<Colocation> {
     @POST
     @Path("new")
     @Produces(MediaType.APPLICATION_JSON)
-    @Operation(summary = "Add a colocation",
+    @ApiOperation(value = "Add a colocation",
             tags = {"colocation"},
-            description = "Gets informations to create a new colocation. Miss informations will simulate API error conditions",
-            responses = {
-                    @ApiResponse(description = "A colocation", content = @Content(
-                            schema = @Schema(implementation = Colocation.class)
-                    ))
-            })
+            notes = "Sends informations to create a new colocation. Miss informations will simulate API error conditions",
+            response = Colocation.class
+    )
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "name", value = "Colocation's name", required = true, dataType = "string", paramType = "query"),
+            @ApiImplicitParam(name = "manager", value = "Manager's email", required = true, dataType = "string", paramType = "query")
+    })
     public Response addColocation(
             @Parameter(
                     description = "Name of colocation that needs to be fetched",
@@ -58,9 +64,15 @@ public class ColocationServices extends AbstractServices<Colocation> {
     @POST
     @Path("remove")
     @Produces(MediaType.APPLICATION_JSON)
-    @Operation(summary = "Remove a colocation",
+    @ApiOperation(value = "Remove a colocation",
             tags = {"colocation"},
-            description = "Gets name of colocation and manager email to remove it. Miss informations will simulate API error conditions")
+            notes = "Sends name of colocation and manager email to remove it. Miss informations will simulate API error conditions",
+            response = Colocation.class
+    )
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "name", value = "Colocation's name", required = true, dataType = "string", paramType = "query"),
+            @ApiImplicitParam(name = "manager", value = "Manager's email", required = true, dataType = "string", paramType = "query")
+    })
     public Response removeColocation(
             @Parameter(
                     description = "Name of colocation that needs to be fetched",
@@ -89,9 +101,16 @@ public class ColocationServices extends AbstractServices<Colocation> {
     @POST
     @Path("invite")
     @Produces(MediaType.APPLICATION_JSON)
-    @Operation(summary = "Send an invitation",
+    @ApiOperation(value = "Send an invitation",
             tags = {"colocation"},
-            description = "Gets emails of invited user in a colocation. Miss informations will simulate API error conditions")
+            notes = "Sends emails of invited user in a colocation. Miss informations will simulate API error conditions",
+            response = Colocation.class
+    )
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "name", value = "Colocation's name", required = true, dataType = "string", paramType = "query"),
+            @ApiImplicitParam(name = "manager", value = "Manager's email", required = true, dataType = "string", paramType = "query"),
+            @ApiImplicitParam(name = "email", value = "User's emails", required = true, dataType = "string", paramType = "query")
+    })
     public Response sendInvitation(
             @Parameter(
                     description = "Name of colocation that needs to be fetched",
@@ -129,9 +148,16 @@ public class ColocationServices extends AbstractServices<Colocation> {
     @POST
     @Path("editName")
     @Produces(MediaType.APPLICATION_JSON)
-    @Operation(summary = "Edit a colocation name",
+    @ApiOperation(value = "Edit a colocation name",
             tags = {"colocation"},
-            description = "Gets new name of colocation. Miss informations will simulate API error conditions")
+            notes = "Sends new name of colocation. Miss informations will simulate API error conditions",
+            response = Colocation.class
+    )
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "name", value = "Colocation's name", required = true, dataType = "string", paramType = "query"),
+            @ApiImplicitParam(name = "manager", value = "Manager's email", required = true, dataType = "string", paramType = "query"),
+            @ApiImplicitParam(name = "newName", value = "Colocation's new name", required = true, dataType = "string", paramType = "query")
+    })
     public Response editColocationName(
             @Parameter(
                     description = "Name of colocation that needs to be fetched",
@@ -169,9 +195,16 @@ public class ColocationServices extends AbstractServices<Colocation> {
     @POST
     @Path("removeMember")
     @Produces(MediaType.APPLICATION_JSON)
-    @Operation(summary = "Remove a colocation's member",
+    @ApiOperation(value = "Remove a colocation's member",
             tags = {"colocation"},
-            description = "Gets emails of user to remove in colocation. Miss informations will simulate API error conditions")
+            notes = "Sends emails of user to remove in colocation. Miss informations will simulate API error conditions",
+            response = Colocation.class
+    )
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "name", value = "Colocation's name", required = true, dataType = "string", paramType = "query"),
+            @ApiImplicitParam(name = "manager", value = "Manager's email", required = true, dataType = "string", paramType = "query"),
+            @ApiImplicitParam(name = "email", value = "User's email", required = true, dataType = "string", paramType = "query")
+    })
     public Response removeMember(
             @Parameter(
                     description = "Name of colocation that needs to be fetched",
@@ -209,9 +242,15 @@ public class ColocationServices extends AbstractServices<Colocation> {
     @GET
     @Path("best")
     @Produces(MediaType.APPLICATION_JSON)
-    @Operation(summary = "Get best user",
+    @ApiOperation(value = "Get best user",
             tags = {"colocation"},
-            description = "Returns best user with higher points in colocation. Miss informations will simulation API error conditions")
+            notes = "Returns best user with higher points in colocation. Miss informations will simulation API error conditions",
+            response = Colocation.class
+    )
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "email", value = "User's email", required = true, dataType = "string", paramType = "query"),
+            @ApiImplicitParam(name = "name", value = "Colocation's name", required = true, dataType = "string", paramType = "query")
+    })
     public Response getBestUser(
             @Parameter(
                     description = "Email of user that needs to be fetched",

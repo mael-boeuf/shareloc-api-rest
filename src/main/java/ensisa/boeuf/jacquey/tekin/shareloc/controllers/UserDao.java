@@ -1,7 +1,9 @@
 package ensisa.boeuf.jacquey.tekin.shareloc.controllers;
 
 import ensisa.boeuf.jacquey.tekin.shareloc.model.*;
+import io.swagger.annotations.Api;
 
+@Api(value = "/user")
 public class UserDao extends Dao {
 
     public UserDao() {

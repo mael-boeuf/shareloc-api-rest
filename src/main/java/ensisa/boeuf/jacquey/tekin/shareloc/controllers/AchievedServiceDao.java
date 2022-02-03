@@ -4,6 +4,7 @@ import ensisa.boeuf.jacquey.tekin.shareloc.model.AchievedService;
 import ensisa.boeuf.jacquey.tekin.shareloc.model.Image;
 import ensisa.boeuf.jacquey.tekin.shareloc.model.Service;
 import ensisa.boeuf.jacquey.tekin.shareloc.model.User;
+import io.swagger.annotations.Api;
 
 import java.sql.Timestamp;
 import java.text.ParseException;
@@ -13,6 +14,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+@Api(value = "/achievedService")
 public class AchievedServiceDao extends Dao {
 
     public AchievedServiceDao() {

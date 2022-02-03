@@ -29,20 +29,51 @@
     </servlet>
 
     <servlet>
-        <servlet-name>Jersey Web Application</servlet-name>
+        <servlet-name>jersey</servlet-name>
         <servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
         <init-param>
             <param-name>jersey.config.server.provider.packages</param-name>
             <param-value>
                 io.swagger.jaxrs.listing,
-                ensisa.boeuf.jacquey.tekin.shareloc.*
+                ensisa.boeuf.jacquey.tekin.shareloc.services,
+                ensisa.boeuf.jacquey.tekin.shareloc.model
             </param-value>
         </init-param>
         <load-on-startup>1</load-on-startup>
     </servlet>
 
     <servlet-mapping>
-        <servlet-name>Jersey Web Application</servlet-name>
+        <servlet-name>jersey</servlet-name>
+        <url-pattern>/shareloc-1.0-SNAPSHOT/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>jersey2</servlet-name>
+        <servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
+        <init-param>
+            <param-name>jersey.config.server.provider.classnames</param-name>
+            <param-value>
+                io.swagger.jaxrs.listing.ApiListingResource,
+                io.swagger.jaxrs.listing.SwaggerSerializers,
+                ensisa.boeuf.jacquey.tekin.shareloc.model.User,
+                ensisa.boeuf.jacquey.tekin.shareloc.model.Colocation,
+                ensisa.boeuf.jacquey.tekin.shareloc.model.Service,
+                ensisa.boeuf.jacquey.tekin.shareloc.model.AchievedService,
+                ensisa.boeuf.jacquey.tekin.shareloc.model.Image,
+                ensisa.boeuf.jacquey.tekin.shareloc.model.Point,
+                ensisa.boeuf.jacquey.tekin.shareloc.services.AbstractServices,
+                ensisa.boeuf.jacquey.tekin.shareloc.services.ColocationServices,
+                ensisa.boeuf.jacquey.tekin.shareloc.services.ConnectionServices,
+                ensisa.boeuf.jacquey.tekin.shareloc.services.UserServices,
+                ensisa.boeuf.jacquey.tekin.shareloc.services.AchievedServiceServices,
+                ensisa.boeuf.jacquey.tekin.shareloc.services.ServiceServices
+            </param-value>
+        </init-param>
+    </servlet>
+
+
+    <servlet-mapping>
+        <servlet-name>jersey2</servlet-name>
         <url-pattern>/*</url-pattern>
     </servlet-mapping>
 

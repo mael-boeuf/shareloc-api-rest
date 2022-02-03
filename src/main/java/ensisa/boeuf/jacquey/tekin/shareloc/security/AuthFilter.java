@@ -1,6 +1,8 @@
 package ensisa.boeuf.jacquey.tekin.shareloc.security;
 
 import ensisa.boeuf.jacquey.tekin.shareloc.services.ConnectionServices;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiModel;
 import org.jose4j.jwk.RsaJsonWebKey;
 import org.jose4j.jwk.RsaJwkGenerator;
 import org.jose4j.jwt.JwtClaims;

@@ -2,6 +2,8 @@ package ensisa.boeuf.jacquey.tekin.shareloc.services;
 
 import ensisa.boeuf.jacquey.tekin.shareloc.controllers.AbstractDao;
 import ensisa.boeuf.jacquey.tekin.shareloc.controllers.Dao;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -37,14 +39,11 @@ public class AbstractServices<T> {
     @GET
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    @Operation(summary = "Find an object in dao by ID",
+    @ApiOperation(value = "Find an object in dao by ID",
             tags = {"services"},
-            description = "Returns an object in dao. Null object will simulate API error conditions",
-            responses = {
-                    @ApiResponse(description = "Dao", content = @Content(
-                            schema = @Schema(implementation = Dao.class)
-                    ))
-            })
+            notes = "Returns an object in dao. Null object will simulate API error conditions",
+            response = Dao.class
+    )
     public Response get(
             @Parameter(
                     description = "ID of dao that needs to be fetched",
@@ -54,6 +53,7 @@ public class AbstractServices<T> {
                             description = "Param ID of dao that needs to be fetched"
                     ),
                     required = true)
+            @ApiParam(value = "Dao's id", required = true)
             @PathParam("id") Integer id) {
         final T obj = dao.find(id);
         if (obj == null) return Response.status(Response.Status.NOT_FOUND).build();

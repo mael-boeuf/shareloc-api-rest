@@ -2,6 +2,10 @@ package ensisa.boeuf.jacquey.tekin.shareloc.services;
 
 import ensisa.boeuf.jacquey.tekin.shareloc.controllers.AchievedServiceDao;
 import ensisa.boeuf.jacquey.tekin.shareloc.model.AchievedService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -17,6 +21,7 @@ import javax.ws.rs.core.Response;
 import java.util.List;
 
 @Path("achievedService")
+@Api(value = "/achievedService", consumes="application/json, application/xml")
 public class AchievedServiceServices extends AbstractServices<AchievedService> {
 
     public AchievedServiceServices() {
@@ -26,14 +31,19 @@ public class AchievedServiceServices extends AbstractServices<AchievedService> {
     @POST
     @Path("new")
     @Produces(MediaType.APPLICATION_JSON)
-    @Operation(summary = "Create new achieved service",
+    @ApiOperation(value = "Create new achieved service",
             tags = {"achievedService"},
-            description = "Gets informations to create a new achieved service. Miss informations will simulate API error conditions",
-            responses = {
-                    @ApiResponse(description = "An Achieved Service", content = @Content(
-                            schema = @Schema(implementation = AchievedService.class)
-                    ))
-            })
+            notes = "Sends informations to create a new achieved service. Miss informations will simulate API error conditions",
+            response = AchievedService.class
+
+            )
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "email", value = "User's name", required = true, dataType = "string", paramType = "query"),
+            @ApiImplicitParam(name = "serviceID", value = "ID's service", required = true, dataType = "string", paramType = "query"),
+            @ApiImplicitParam(name = "date", value = "Declaration date of achieved service", required = true, dataType = "string", paramType = "query"),
+            @ApiImplicitParam(name = "picture", value = "Picture of achieved service", required = false, dataType = "string", paramType = "query"),
+            @ApiImplicitParam(name = "to", value = "Beneficiary users", required = true, dataType = "list<string>", paramType = "query")
+    })
     public Response newAchievedService(
             @Parameter(
                     description = "Email of user that needs to be fetched",

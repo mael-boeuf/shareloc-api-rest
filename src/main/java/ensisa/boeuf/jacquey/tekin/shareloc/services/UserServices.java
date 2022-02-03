@@ -2,6 +2,10 @@ package ensisa.boeuf.jacquey.tekin.shareloc.services;
 
 import ensisa.boeuf.jacquey.tekin.shareloc.controllers.UserDao;
 import ensisa.boeuf.jacquey.tekin.shareloc.model.User;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -16,6 +20,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 @Path("user")
+@Api(value = "/user", consumes="application/json, application/xml")
 public class UserServices extends AbstractServices<User> {
 
     public UserServices() {
@@ -25,14 +30,17 @@ public class UserServices extends AbstractServices<User> {
     @POST
     @Path("edit")
     @Produces(MediaType.APPLICATION_JSON)
-    @Operation(summary = "Edit profile properties",
+    @ApiOperation(value = "Edit profile properties",
             tags = {"user"},
-            description = "Gets new firstname or/and lastname of user. ",
-            responses = {
-                    @ApiResponse(description = "An user", content = @Content(
-                            schema = @Schema(implementation = User.class)
-                    ))
-            })
+            notes = "Sends new first name or/and last name of user. ",
+            response = User.class
+    )
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "email", value = "User's email", required = true, dataType = "string", paramType = "query"),
+            @ApiImplicitParam(name = "password", value = "User's password", required = true, dataType = "string", paramType = "query"),
+            @ApiImplicitParam(name = "firstname", value = "User's new first name", required = false, dataType = "string", paramType = "query"),
+            @ApiImplicitParam(name = "lastname", value = "User's new last name", required = false, dataType = "string", paramType = "query")
+    })
     public Response editFirstLastNames(
             @Parameter(
                     description = "Email of user that needs to be fetched",
@@ -53,20 +61,20 @@ public class UserServices extends AbstractServices<User> {
                     required = true)
             @QueryParam("password") String password,
             @Parameter(
-                    description = "Firstname of user that needs to be fetched",
+                    description = "First name of user that needs to be fetched",
                     schema = @Schema(
                             type = "string",
                             format = "string",
-                            description = "Query param firstname of user that needs to be fetched"
+                            description = "Query param first name of user that needs to be fetched"
                     ),
                     required = false)
             @QueryParam("firstname") String firstname,
             @Parameter(
-                    description = "Lastname of user that needs to be fetched",
+                    description = "Last name of user that needs to be fetched",
                     schema = @Schema(
                             type = "string",
                             format = "string",
-                            description = "Query param lastname of user that needs to be fetched"
+                            description = "Query param last name of user that needs to be fetched"
                     ),
                     required = false)
             @QueryParam("lastname") String lastname) {
@@ -79,9 +87,15 @@ public class UserServices extends AbstractServices<User> {
     @POST
     @Path("quit")
     @Produces(MediaType.APPLICATION_JSON)
-    @Operation(summary = "Quit a colocation",
+    @ApiOperation(value = "Quit a colocation",
             tags = {"user"},
-            description = "Gets name of colocation to quit. Miss informations will simulate API error conditions")
+            notes = "Sends name of colocation to quit. Miss informations will simulate API error conditions",
+            response = User.class
+    )
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "email", value = "User's email", required = true, dataType = "string", paramType = "query"),
+            @ApiImplicitParam(name = "name", value = "Colocation's name", required = true, dataType = "string", paramType = "query")
+    })
     public Response quitColocation(
             @Parameter(
                     description = "Email of user that needs to be fetched",
@@ -110,9 +124,16 @@ public class UserServices extends AbstractServices<User> {
     @POST
     @Path("vote")
     @Produces(MediaType.APPLICATION_JSON)
-    @Operation(summary = "Vote for a service",
+    @ApiOperation(value = "Vote for a service",
             tags = {"user"},
-            description = "Gets number of vote for a service with his ID. Miss informations will simulate error conditions")
+            notes = "Sends number of vote for a service with his ID. Miss informations will simulate error conditions",
+            response = User.class
+    )
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "email", value = "User's name", required = true, dataType = "string", paramType = "query"),
+            @ApiImplicitParam(name = "serviceID", value = "ID's service", required = true, dataType = "long", paramType = "query"),
+            @ApiImplicitParam(name = "vote", value = "Number of votes for service", required = true, dataType = "int", paramType = "query")
+    })
     public Response vote(
             @Parameter(
                     description = "Email of user that needs to be fetched",
@@ -150,9 +171,17 @@ public class UserServices extends AbstractServices<User> {
     @POST
     @Path("valid")
     @Produces(MediaType.APPLICATION_JSON)
-    @Operation(summary = "Validate an achieved service",
+    @ApiOperation(value = "Validate an achieved service",
             tags = {"user"},
-            description = "Gets validation for an achieved service declaration. Miss informations will simulate API error conditions")
+            notes = "Sends validation for an achieved service declaration. Miss informations will simulate API error conditions",
+            response = User.class
+
+    )
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "email", value = "User's email", required = true, dataType = "string", paramType = "query"),
+            @ApiImplicitParam(name = "achievedServiceID", value = "ID's achieved service", required = true, dataType = "long", paramType = "query"),
+            @ApiImplicitParam(name = "valid", value = "Achieved service's validation", required = true, dataType = "boolean", paramType = "query")
+    })
     public Response valid(
             @Parameter(
                     description = "Email of user that needs to be fetched",

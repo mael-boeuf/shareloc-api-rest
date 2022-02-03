@@ -2,6 +2,10 @@ package ensisa.boeuf.jacquey.tekin.shareloc.services;
 
 import ensisa.boeuf.jacquey.tekin.shareloc.controllers.ServiceDao;
 import ensisa.boeuf.jacquey.tekin.shareloc.model.Service;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -16,6 +20,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 @Path("service")
+@Api(value = "/service", consumes="application/json, application/xml")
 public class ServiceServices extends AbstractServices<Service>{
 
     public ServiceServices() {
@@ -25,14 +30,17 @@ public class ServiceServices extends AbstractServices<Service>{
     @POST
     @Path("new")
     @Produces(MediaType.APPLICATION_JSON)
-    @Operation(summary = "Create a new service",
+    @ApiOperation(value = "Create a new service",
             tags = {"service"},
-            description = "Gets informations to create a new service. Miss informations will simulate API error conditions",
-            responses = {
-                    @ApiResponse(description = "A service", content = @Content(
-                            schema = @Schema(implementation = Service.class)
-                    ))
-            })
+            notes = "Sends informations to create a new service. Miss informations will simulate API error conditions",
+            response = Service.class
+    )
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "name", value = "Colocation's name", required = true, dataType = "string", paramType = "query"),
+            @ApiImplicitParam(name = "title", value = "Service's title", required = true, dataType = "string", paramType = "query"),
+            @ApiImplicitParam(name = "description", value = "Service's description", required = true, dataType = "string", paramType = "query"),
+            @ApiImplicitParam(name = "cost", value = "Beneficiary users", required = true, dataType = "int", paramType = "query")
+    })
     public Response newService(
             @Parameter(
                     description = "Name of colocation that needs to be fetched",

@@ -3,6 +3,10 @@ package ensisa.boeuf.jacquey.tekin.shareloc.services;
 import ensisa.boeuf.jacquey.tekin.shareloc.controllers.UserDao;
 import ensisa.boeuf.jacquey.tekin.shareloc.model.User;
 import ensisa.boeuf.jacquey.tekin.shareloc.security.TokenBuilder;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -17,6 +21,7 @@ import javax.ws.rs.core.SecurityContext;
 import java.util.List;
 
 @Path("/")
+@Api(value = "/", consumes="application/json, application/xml")
 public class ConnectionServices {
 
     public ConnectionServices() {
@@ -25,14 +30,17 @@ public class ConnectionServices {
     @POST
     @Path("signup")
     @Produces(MediaType.APPLICATION_JSON)
-    @Operation(summary = "Create an user and signup",
+    @ApiOperation(value = "Create an user and signup",
             tags = {"connection"},
-            description = "Gets informations to create a new user. Miss informations will simulate API error conditions",
-            responses = {
-                    @ApiResponse(description = "An user", content = @Content(
-                            schema = @Schema(implementation = User.class)
-                    ))}
+            notes = "Sends informations to create a new user. Miss informations will simulate API error conditions",
+            response = User.class
     )
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "email", value = "User's email", required = true, dataType = "string", paramType = "query"),
+            @ApiImplicitParam(name = "password", value = "User's password", required = true, dataType = "string", paramType = "query"),
+            @ApiImplicitParam(name = "firstname", value = "User's first name", required = true, dataType = "string", paramType = "query"),
+            @ApiImplicitParam(name = "lastname", value = "User's last name", required = true, dataType = "string", paramType = "query")
+    })
     public Response signup(
             @Parameter(
                     description = "Email of user that needs to be fetched",
@@ -53,20 +61,20 @@ public class ConnectionServices {
                     required = true)
             @QueryParam("password") String password,
             @Parameter(
-                    description = "Firstname of user that needs to be fetched",
+                    description = "First name of user that needs to be fetched",
                     schema = @Schema(
                             type = "string",
                             format = "string",
-                            description = "Query param firstname of user that needs to be fetched"
+                            description = "Query param first name of user that needs to be fetched"
                     ),
                     required = true)
             @QueryParam("firstname") String firstname,
             @Parameter(
-                    description = "Lastname of user that needs to be fetched",
+                    description = "Last name of user that needs to be fetched",
                     schema = @Schema(
                             type = "string",
                             format = "string",
-                            description = "Query param lastname of user that needs to be fetched"
+                            description = "Query param last name of user that needs to be fetched"
                     ),
                     required = true)
             @QueryParam("lastname") String lastname) {
@@ -79,10 +87,14 @@ public class ConnectionServices {
     @POST
     @Path("signin")
     @Produces(MediaType.APPLICATION_JSON)
-    @Operation(summary = "Signin with identifiants",
+    @ApiOperation(value = "Signin with identifiants",
             tags = {"connection"},
-            description = "Gets connection informations of user. Miss informations will simulate API error conditions"
+            notes = "Sends connection informations of user. Miss informations will simulate API error conditions"
     )
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "email", value = "User's email", required = true, dataType = "string", paramType = "query"),
+            @ApiImplicitParam(name = "password", value = "User's password", required = true, dataType = "string", paramType = "query")
+    })
     public Response signin(
             @Parameter(
                     description = "Email of user that needs to be fetched",
@@ -112,9 +124,9 @@ public class ConnectionServices {
     @GET
     @Path("myprofile")
     @Produces(MediaType.APPLICATION_JSON)
-    @Operation(summary = "Get account properties",
+    @ApiOperation(value = "Get account properties",
             tags = {"connection"},
-            description = "Gets account properties. Miss informations will simulate API error conditions")
+            notes = "Gets account properties. Miss informations will simulate API error conditions")
     public Response whoami(@Context SecurityContext security) {
         User user = UserDao.getUser(security.getUserPrincipal().getName());
         if (user!=null)

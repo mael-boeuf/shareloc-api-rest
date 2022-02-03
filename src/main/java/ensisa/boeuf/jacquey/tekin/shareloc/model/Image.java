@@ -1,5 +1,8 @@
 package ensisa.boeuf.jacquey.tekin.shareloc.model;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -8,6 +11,7 @@ import java.io.Serializable;
 import java.util.Arrays;
 
 @Entity
+@ApiModel(value="Image", description="Image model")
 public class Image implements Serializable {
 
     @Id
@@ -22,10 +26,12 @@ public class Image implements Serializable {
         this.bytes = bytes;
     }
 
+    @ApiModelProperty(value = "Gets ID of image")
     public Long getId() {
         return id;
     }
 
+    @ApiModelProperty(value = "Sets ID of image", dataType = "Long", required = true)
     public void setId(Long id) {
         this.id = id;
     }
